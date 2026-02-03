@@ -1,0 +1,66 @@
+[
+    {
+        "merged": "com.insecureshop.app-mergeDebugResources-35:/layout/product_item.xml",
+        "source": "com.insecureshop.app-main-38:/layout/product_item.xml"
+    },
+    {
+        "merged": "com.insecureshop.app-mergeDebugResources-35:/layout/fragment_home.xml",
+        "source": "com.insecureshop.app-main-38:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "com.insecureshop.app-mergeDebugResources-35:/layout/activity_about_us.xml",
+        "source": "com.insecureshop.app-main-38:/layout/activity_about_us.xml"
+    },
+    {
+        "merged": "com.insecureshop.app-mergeDebugResources-35:/layout/activity_chooser.xml",
+        "source": "com.insecureshop.app-main-38:/layout/activity_chooser.xml"
+    },
+    {
+        "merged": "com.insecureshop.app-mergeDebugResources-35:/layout/activity_product_list.xml",
+        "source": "com.insecureshop.app-main-38:/layout/activity_product_list.xml"
+    },
+    {
+        "merged": "com.insecureshop.app-mergeDebugResources-35:/layout/cart_item.xml",
+        "source": "com.insecureshop.app-main-38:/layout/cart_item.xml"
+    },
+    {
+        "merged": "com.insecureshop.app-mergeDebugResources-35:/layout/activity_login.xml",
+        "source": "com.insecureshop.app-main-38:/layout/activity_login.xml"
+    },
+    {
+        "merged": "com.insecureshop.app-mergeDebugResources-35:/layout/activity_main.xml",
+        "source": "com.insecureshop.app-main-38:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.insecureshop.app-mergeDebugResources-35:/layout/toolbar.xml",
+        "source": "com.insecureshop.app-main-38:/layout/toolbar.xml"
+    },
+    {
+        "merged": "com.insecureshop.app-mergeDebugResources-35:/layout/app_loading_dialog.xml",
+        "source": "com.insecureshop.app-main-38:/layout/app_loading_dialog.xml"
+    },
+    {
+        "merged": "com.insecureshop.app-mergeDebugResources-35:/layout/base_main.xml",
+        "source": "com.insecureshop.app-main-38:/layout/base_main.xml"
+    },
+    {
+        "merged": "com.insecureshop.app-mergeDebugResources-35:/layout/activity_cart_list.xml",
+        "source": "com.insecureshop.app-main-38:/layout/activity_cart_list.xml"
+    },
+    {
+        "merged": "com.insecureshop.app-mergeDebugResources-35:/layout/upload_success_dialog.xml",
+        "source": "com.insecureshop.app-main-38:/layout/upload_success_dialog.xml"
+    },
+    {
+        "merged": "com.insecureshop.app-mergeDebugResources-35:/layout/activity_webview.xml",
+        "source": "com.insecureshop.app-main-38:/layout/activity_webview.xml"
+    },
+    {
+        "merged": "com.insecureshop.app-mergeDebugResources-35:/layout/activity_implicit_intent_for_non_exported.xml",
+        "source": "com.insecureshop.app-main-38:/layout/activity_implicit_intent_for_non_exported.xml"
+    },
+    {
+        "merged": "com.insecureshop.app-mergeDebugResources-35:/layout/activity_private.xml",
+        "source": "com.insecureshop.app-main-38:/layout/activity_private.xml"
+    }
+]
