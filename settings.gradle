@@ -10,8 +10,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { url "https://jitpack.io" } // Essencial para o InsecureShop
-        jcenter() // Essencial para libs antigas (como o uploadservice 3.x)
+        maven { url "https://jitpack.io" }
+        jcenter()
     }
 }
 rootProject.name = "InsecureShop"

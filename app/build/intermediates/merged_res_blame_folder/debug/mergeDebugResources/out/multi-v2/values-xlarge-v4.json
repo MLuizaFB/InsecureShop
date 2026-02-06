@@ -4,7 +4,7 @@
             "outputFile": "com.insecureshop.app-mergeDebugResources-34:/values-xlarge-v4/values-xlarge-v4.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Dell\\.gradle\\caches\\8.11.1\\transforms\\045a304ab4ee883bf842bc8a2de56f06\\transformed\\appcompat-1.6.1\\res\\values-xlarge-v4\\values-xlarge-v4.xml",
+                    "source": "C:\\Users\\Dell\\.gradle\\caches\\8.11.1\\transforms\\e86e7d8dbc7883381948f718458b5364\\transformed\\appcompat-1.6.1\\res\\values-xlarge-v4\\values-xlarge-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7",
                         "startColumns": "4,4,4,4,4,4",
