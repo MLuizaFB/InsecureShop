@@ -10,6 +10,18 @@
 <a href="https://github.com/hax0rgb/InsecureShop/releases"><img src="https://img.shields.io/github/v/release/hax0rgb/InsecureShop"></a>
 </p>
 
+---
+
+### ⚠️ Aviso de Autoria / Attribution Notice
+
+> **Este projeto é um fork independente e modernizado do projeto original [InsecureShop](https://github.com/hax0rgb/InsecureShop), criado por hax0rgb.**
+>
+> O código original foi mantido como base, porém a estrutura de build, dependências e configurações foram atualizadas para suportar o **Android 14 (API 34)** e ferramentas modernas (Gradle 8.0+, ViewBinding), com o objetivo acadêmico de realizar análises de segurança (SAST/DAST).
+>
+> **Project Goal:** Update the legacy environment to allow dynamic analysis on modern Android devices without altering the core vulnerabilities.
+
+---
+
 <p align="center">
   <a href="#%EF%B8%8F-usage">Usage</a> •
   <a href="#-note">Note</a> •
