@@ -1,23 +1,41 @@
 package com.insecureshop
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.insecureshop.databinding.ActivityAboutUsBinding
 import com.insecureshop.util.Prefs
-import kotlinx.android.synthetic.main.activity_about_us.*
 
 
 class AboutUsActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityAboutUsBinding
+
     lateinit var receiver: CustomReceiver
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_about_us)
+
+        binding = ActivityAboutUsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.sendDataToBroadcast.setOnClickListener{
+            performSendData()
+        }
+
         receiver = CustomReceiver()
-        registerReceiver(receiver, IntentFilter("com.insecureshop.CUSTOM_INTENT"))
+        val filter = IntentFilter("com.insecureshop.CUSTOM_INTENT")
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(receiver, filter, Context.RECEIVER_EXPORTED)
+        } else {
+            registerReceiver(receiver, filter)
+        }
     }
 
     override fun onDestroy() {
@@ -25,17 +43,17 @@ class AboutUsActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    fun onSendData(view: View) {
-        val userName = Prefs.username!!
-        val password = Prefs.password!!
+    private fun performSendData(){
+        val prefs = Prefs.getInstance(applicationContext)
+        val userName = prefs.username
+        val password = prefs.password
 
         val intent = Intent("com.insecureshop.action.BROADCAST")
         intent.putExtra("username", userName)
         intent.putExtra("password", password)
         sendBroadcast(intent)
 
-        textView.text = "InsecureShop is an intentionally designed vulnerable android app built in Kotlin."
-
+        binding.textView.text = "InsecureShop is an intentionally designed vulnerable android app built in Kotlin."
     }
 
 

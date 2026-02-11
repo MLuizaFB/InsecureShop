@@ -2,32 +2,33 @@ package com.insecureshop
 
 import android.net.Uri
 import android.os.Bundle
-import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
+import com.insecureshop.databinding.ActivityWebviewBinding
 import com.insecureshop.util.CustomWebViewClient
 import com.insecureshop.util.Prefs
-import kotlinx.android.synthetic.main.activity_product_list.*
-
 
 class WebViewActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityWebviewBinding
 
     val USER_AGENT =
         "Mozilla/5.0 (Linux; Android 4.1.1; Galaxy Nexus Build/JRO03C) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.65 Mobile Safari/537.36"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_webview)
-        setSupportActionBar(toolbar)
+
+        binding = ActivityWebviewBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
         title = getString(R.string.webview)
 
-        val webview = findViewById<WebView>(R.id.webview)
+        binding.webview.settings.javaScriptEnabled = true
+        binding.webview.settings.loadWithOverviewMode = true
+        binding.webview.settings.useWideViewPort = true
+        binding.webview.settings.allowUniversalAccessFromFileURLs = true
+        binding.webview.settings.userAgentString = USER_AGENT
+        binding.webview.webViewClient = CustomWebViewClient()
 
-        webview.settings.javaScriptEnabled = true
-        webview.settings.loadWithOverviewMode = true
-        webview.settings.useWideViewPort = true
-        webview.settings.allowUniversalAccessFromFileURLs = true
-        webview.settings.userAgentString = USER_AGENT
-        webview.webViewClient = CustomWebViewClient()
         val uri : Uri? = intent.data
         uri?.let {
             var data: String? = null
@@ -41,8 +42,9 @@ class WebViewActivity : AppCompatActivity() {
 
             if (data == null) {
                 finish()
+                return@let
             }
-            webview.loadUrl(data)
+            binding.webview.loadUrl(data)
             Prefs.getInstance(this).data = data
         }
 

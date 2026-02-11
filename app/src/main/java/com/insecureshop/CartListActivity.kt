@@ -5,23 +5,28 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.insecureshop.util.Util
-import kotlinx.android.synthetic.main.activity_cart_list.*
+import com.insecureshop.databinding.ActivityCartListBinding
 
 
 class CartListActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityCartListBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cart_list)
-        setSupportActionBar(toolbar)
+
+        binding = ActivityCartListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         title = "Cart"
 
         val cartAdapter = CartAdapter()
-        recyclerview.layoutManager = LinearLayoutManager(applicationContext)
-        recyclerview.adapter = cartAdapter
+        binding.recyclerview.layoutManager = LinearLayoutManager(applicationContext)
+        binding.recyclerview.adapter = cartAdapter
+
         cartAdapter.cartList = Util.getCartProduct(this)
         cartAdapter.notifyDataSetChanged()
     }
