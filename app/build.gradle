@@ -2,7 +2,26 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-parcelize'
 
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localProperties.load(new FileInputStream(localPropertiesFile))
+}
+
 android {
+
+    signingConfigs {
+        release {
+            storeFile file("insecureshop-release.jks")
+
+            storePassword localProperties['keystore.password']
+            keyAlias localProperties['keystore.alias']
+            keyPassword localProperties['keystore.key_password']
+
+            v2SigningEnabled true
+            enableV3Signing true
+        }
+    }
 
     compileSdkVersion 34
 
@@ -25,6 +44,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
