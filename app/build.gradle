@@ -33,16 +33,21 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        def awsIdentitypoolID = localProperties['aws_Identity_pool_ID'] ?: ""
+
+        buildConfigField "String", "AWS_IDENTITY_POOL_ID", "\"${awsIdentitypoolID}\""
     }
 
     buildFeatures {
         dataBinding true
         viewBinding true
+        buildConfig = true
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
