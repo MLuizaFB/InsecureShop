@@ -9,7 +9,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.insecureshop.databinding.ActivityAboutUsBinding
 import com.insecureshop.util.Prefs
-
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 
 class AboutUsActivity : AppCompatActivity() {
 
@@ -44,16 +45,17 @@ class AboutUsActivity : AppCompatActivity() {
     }
 
     private fun performSendData(){
-        val prefs = Prefs.getInstance(applicationContext)
-        val userName = prefs.username
-        val password = prefs.password
+        lifecycleScope.launch {
+            val userName = Prefs.getUsername(applicationContext)
+            val password = Prefs.getPassword(applicationContext)
 
-        val intent = Intent("com.insecureshop.action.BROADCAST")
-        intent.putExtra("username", userName)
-        intent.putExtra("password", password)
-        sendBroadcast(intent)
+            val intent = Intent("com.insecureshop.action.BROADCAST")
+            intent.putExtra("username", userName)
+            intent.putExtra("password", password)
+            sendBroadcast(intent)
 
-        binding.textView.text = "InsecureShop is an intentionally designed vulnerable android app built in Kotlin."
+            binding.textView.text = "InsecureShop is an intentionally designed vulnerable android app built in Kotlin."
+        }
     }
 
 

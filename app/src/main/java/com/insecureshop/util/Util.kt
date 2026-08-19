@@ -4,8 +4,10 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.insecureshop.ProductDetail
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import java.util.ArrayList
+import java.util.HashMap
 
 object Util {
 
@@ -39,11 +41,15 @@ object Util {
 
     fun saveProductList(context: Context, productList: List<ProductDetail> = getProductList()) {
         val productJson = Gson().toJson(productList)
-        Prefs.getInstance(context).productList = productJson
+        runBlocking(Dispatchers.IO) {
+            Prefs.setProductList(context, productJson)
+        }
     }
 
     fun getProductsPrefs(context: Context): List<ProductDetail> {
-        val products =  Prefs.getInstance(context).productList
+        val products = runBlocking(Dispatchers.IO) {
+            Prefs.getProductList(context)
+        }
         return Gson().fromJson(products, object : TypeToken<List<ProductDetail>>() {}.type)
     }
 

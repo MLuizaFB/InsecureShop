@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.insecureshop.databinding.ActivityPrivateBinding
 import com.insecureshop.util.Prefs
-
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 
 class PrivateActivity : AppCompatActivity() {
 
@@ -34,6 +35,8 @@ class PrivateActivity : AppCompatActivity() {
         }
 
         binding.webview.loadUrl(data)
-        Prefs.getInstance(this).data = data
+        lifecycleScope.launch {
+            Prefs.setData(this@PrivateActivity, data)
+        }
     }
 }

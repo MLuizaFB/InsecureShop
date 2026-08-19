@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.insecureshop.databinding.ActivityWebviewBinding
 import com.insecureshop.util.CustomWebViewClient
 import com.insecureshop.util.Prefs
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 
 class WebViewActivity : AppCompatActivity() {
 
@@ -45,7 +47,9 @@ class WebViewActivity : AppCompatActivity() {
                 return@let
             }
             binding.webview.loadUrl(data)
-            Prefs.getInstance(this).data = data
+            lifecycleScope.launch {
+                Prefs.setData(this@WebViewActivity, data)
+            }
         }
 
     }

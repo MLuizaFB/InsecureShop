@@ -7,7 +7,8 @@ import android.database.Cursor
 import android.database.MatrixCursor
 import android.net.Uri
 import com.insecureshop.util.Prefs
-
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 
 class InsecureShopProvider : ContentProvider() {
 
@@ -31,7 +32,11 @@ class InsecureShopProvider : ContentProvider() {
     ): Cursor? {
         if (uriMatcher?.match(uri) == URI_CODE) {
             val cursor = MatrixCursor(arrayOf("username", "password"))
-            cursor.addRow(arrayOf<String>(Prefs.username!!, Prefs.password!!))
+            context?.let { ctx ->
+                val username = runBlocking(Dispatchers.IO) { Prefs.getUsername(ctx) }
+                val password = runBlocking(Dispatchers.IO) { Prefs.getPassword(ctx) }
+                cursor.addRow(arrayOf<String>(username, password))
+            }
             return cursor
         }
         return null

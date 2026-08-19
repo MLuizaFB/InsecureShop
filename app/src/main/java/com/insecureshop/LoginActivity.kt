@@ -9,9 +9,11 @@ import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.insecureshop.databinding.ActivityLoginBinding
 import com.insecureshop.util.Prefs
 import com.insecureshop.util.Util
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
@@ -42,11 +44,16 @@ class LoginActivity : AppCompatActivity() {
 
         val auth = Util.verifyUserNamePassword(username, password)
         if (auth) {
-            Prefs.getInstance(applicationContext).username = username
-            Prefs.getInstance(applicationContext).password = password
-            Util.saveProductList(this)
-            val intent = Intent(this, ProductListActivity::class.java)
-            startActivity(intent)
+            lifecycleScope.launch {
+                Prefs.setUsername(applicationContext, username)
+                Prefs.setPassword(applicationContext, password)
+
+                Util.saveProductList(this@LoginActivity)
+
+                val intent = Intent(this@LoginActivity, ProductListActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         } else {
             for (info in packageManager.getInstalledPackages(0)) {
                 val packageName = info.packageName

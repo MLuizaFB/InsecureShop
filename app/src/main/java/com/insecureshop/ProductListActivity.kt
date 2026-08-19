@@ -15,7 +15,8 @@ import com.insecureshop.broadcast.ProductDetailBroadCast
 import com.insecureshop.databinding.ActivityProductListBinding
 import com.insecureshop.util.Prefs
 import com.insecureshop.util.Util
-
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 
 class ProductListActivity : AppCompatActivity() {
 
@@ -27,16 +28,19 @@ class ProductListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (TextUtils.isEmpty(Prefs.getInstance(applicationContext).username)) {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-            return
-        }
-
         binding = ActivityProductListBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+
+        lifecycleScope.launch {
+            val username = Prefs.getUsername(applicationContext)
+            if (TextUtils.isEmpty(username)) {
+                val intent = Intent(this@ProductListActivity, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+                return@launch
+            }
+        }
 
         val intentFilter = IntentFilter("com.insecureshop.action.PRODUCT_DETAIL")
 
@@ -63,10 +67,12 @@ class ProductListActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         super.onOptionsItemSelected(item)
         if (item.itemId == R.id.logout) {
-            Prefs.getInstance(applicationContext).clearAll()
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
+            lifecycleScope.launch {
+                Prefs.clearAll(applicationContext)
+                val intent = Intent(this@ProductListActivity, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
         if (item.itemId == R.id.cart) {
             val intent = Intent(this, CartListActivity::class.java)
