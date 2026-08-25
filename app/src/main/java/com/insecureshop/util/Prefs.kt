@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import java.io.IOException
+import java.security.MessageDigest
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "insecureshop_prefs")
 
@@ -69,9 +70,15 @@ object Prefs {
         }
     }
 
+    private fun hashPassword(password: String): String {
+        val bytes = MessageDigest.getInstance("SHA-256").digest(password.toByteArray())
+        return bytes.joinToString("") { "%02x".format(it) }
+    }
+
     suspend fun setPassword(context: Context, value: String) {
+        val hashedValue = hashPassword(value)
         context.dataStore.edit { preferences ->
-            preferences[PASSWORD_KEY] = value
+            preferences[PASSWORD_KEY] = hashedValue
         }
     }
 
