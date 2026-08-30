@@ -50,6 +50,13 @@ object Util {
         val products = runBlocking(Dispatchers.IO) {
             Prefs.getProductList(context)
         }
+
+        if (products.isEmpty()) {
+            val defaultList = getProductList()
+            saveProductList(context, defaultList)
+            return defaultList
+        }
+
         return Gson().fromJson(products, object : TypeToken<List<ProductDetail>>() {}.type)
     }
 

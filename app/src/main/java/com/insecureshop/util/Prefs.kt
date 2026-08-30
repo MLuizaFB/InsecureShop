@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 import java.security.MessageDigest
+import java.security.SecureRandom
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "insecureshop_prefs")
 
@@ -70,15 +71,29 @@ object Prefs {
         }
     }
 
-    private fun hashPassword(password: String): String {
-        val bytes = MessageDigest.getInstance("SHA-256").digest(password.toByteArray())
-        return bytes.joinToString("") { "%02x".format(it) }
+    private fun generateSalt(): ByteArray {
+        val random = SecureRandom()
+        val salt = ByteArray(16)
+        random.nextBytes(salt)
+        return salt
+    }
+
+    private fun hashPasswordWithSalt(password: String, salt: ByteArray): String {
+        val digest = MessageDigest.getInstance("SHA-256")
+        digest.update(salt)
+        val hashBytes = digest.digest(password.toByteArray(Charsets.UTF_8))
+
+        val saltHex = salt.joinToString("") { "%02x".format(it) }
+        val hashHex = hashBytes.joinToString("") { "%02x".format(it) }
+
+        return "$saltHex:$hashHex"
     }
 
     suspend fun setPassword(context: Context, value: String) {
-        val hashedValue = hashPassword(value)
+        val salt = generateSalt()
+        val saltedHash = hashPasswordWithSalt(value, salt)
         context.dataStore.edit { preferences ->
-            preferences[PASSWORD_KEY] = hashedValue
+            preferences[PASSWORD_KEY] = saltedHash
         }
     }
 
