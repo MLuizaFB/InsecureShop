@@ -12,13 +12,27 @@
 
 ---
 
-### ⚠️ Aviso de Autoria / Attribution Notice
+## Aviso de Autoria / Attribution Notice
 
-> **Este projeto é um fork independente e modernizado do projeto original [InsecureShop](https://github.com/hax0rgb/InsecureShop), criado por hax0rgb.**
->
-> O código original foi mantido como base, porém a estrutura de build, dependências e configurações foram atualizadas para suportar o **Android 14 (API 34)** e ferramentas modernas (Gradle 8.0+, ViewBinding), com o objetivo acadêmico de realizar análises de segurança (SAST/DAST).
->
-> **Project Goal:** Update the legacy environment to allow dynamic analysis on modern Android devices without altering the core vulnerabilities.
+Este projeto é um fork independente do repositório original [InsecureShop](https://github.com/hax0rgb/InsecureShop), criado por **hax0rgb**.
+
+O código original foi utilizado como objeto de estudo para um Trabalho de Conclusão de Curso (TCC) em Engenharia de Software na Universidade Estadual de Ponta Grossa (UEPG). As intervenções e contribuições realizadas neste repositório incluem:
+
+1. **Modernização do Ambiente de Compilação:** Atualização da esteira de build para suporte ao Android 14 (API 34), Android Gradle Plugin 8.0+, integração do Jetpack ViewBinding e suporte a versões modernas do Kotlin.
+2. **Remediação de Vulnerabilidades (OWASP MASVS):** Refatoração prática de código e configurações nos domínios de armazenamento local (`MASVS-STORAGE`) e criptografia (`MASVS-CRYPTO`), incluindo:
+   - Migração da camada de persistência para **Jetpack DataStore** com hashing (SHA-256) e salting (`SecureRandom`);
+   - Segregação de identificadores sensíveis via `local.properties`, injeção em compilação (`BuildConfig`) e ofuscação pelo compilador R8;
+   - Implementação de esteira de release com assinatura digital nos esquemas **v2 e v3** (RSA 2048 bits e SHA-256);
+   - Definição de políticas restritivas de backup e transferência de dados (`data_extraction_rules.xml` e `backup_rules.xml`).
+
+---
+
+### English Summary
+This repository is an independent fork of the original [InsecureShop](https://github.com/hax0rgb/InsecureShop) project by **hax0rgb**, developed as part of an undergraduate thesis in Software Engineering at the State University of Ponta Grossa (UEPG).
+
+**Key Contributions:**
+- Upgraded the legacy build pipeline to target Android 14 (API 34), AGP 8.0+, and modern Kotlin tools.
+- Implemented practical code remediations aligned with the **OWASP MASVS** standard (`MASVS-STORAGE` and `MASVS-CRYPTO`), mitigating hardcoded identifiers, insecure plaintext storage, obsolete SHA-1 signing, and unrestricted backup policies.
 
 ---
 
